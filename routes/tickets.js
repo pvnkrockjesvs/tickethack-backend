@@ -2,10 +2,18 @@ var express = require('express');
 var router = express.Router();
 const Ticket = require('./../models/tickets')
 const moment = require('moment')
+const { getTotal } = require('../modules/cartTotal');
+
 
 // Recupere les tickets dans le panier
 router.get('/cart', (req, res) => {
-    Ticket.find({isPayed: false}).populate('trip').then(tick => res.json(tick))
+    Ticket.find({isPayed: false}).populate('trip').then(tick => {
+        if (tick.length == 0) {
+            res.json({result: false, "error": "no trips in cart"})
+        } else {
+            res.json({result: true, tick, total: getTotal(tick)})
+        }
+    }    )
 })
 
 // Status du ticket acheté
@@ -20,7 +28,13 @@ router.delete('/cart/:tickId', (req, res) => {
 
 // Recupere les tickets achetés
 router.get('/booked', (req, res) => {
-    Ticket.find({isPayed: true}).populate('trip').then(tick => res.json(tick))
+    Ticket.find({isPayed: true}).populate('trip').then(tick => {
+        if (tick.length == 0) {
+            res.json({result: false, "error": "no trips booked"})
+        } else {
+            res.json({result: true, tick})
+        }
+    })
 })
 
 // Ajoute le ticket au panier
