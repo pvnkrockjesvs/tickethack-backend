@@ -10,7 +10,6 @@ router.get('/', (req,res) => {
 })
 
 router.get('/:departure&:arrival&:date', (req, res) => {
-    let hour = moment(req.params.date)
     Trip.find({ departure: req.params.departure,
                 arrival: req.params.arrival,
                 date: { "$gte" : new Date(moment(req.params.date)), 
