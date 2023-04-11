@@ -8,4 +8,13 @@ router.get('/', (req,res) => {
     })
 })
 
+router.get('/:departure&:arrival', (req, res) => {
+    Trip.find({ departure: req.params.departure,
+                arrival: req.params.arrival
+            })
+    .then((trips) => {
+        res.json(trips)
+    })
+})
+
 module.exports = router;
