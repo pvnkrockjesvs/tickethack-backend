@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Trip = require('./../models/trips')
+const moment = require('moment')
 
 router.get('/', (req,res) => {
     Trip.find().then((trips) => {
@@ -8,9 +9,12 @@ router.get('/', (req,res) => {
     })
 })
 
-router.get('/:departure&:arrival', (req, res) => {
+router.get('/:departure&:arrival&:date', (req, res) => {
+    let hour = moment(req.params.date)
     Trip.find({ departure: req.params.departure,
-                arrival: req.params.arrival
+                arrival: req.params.arrival,
+                date: { "$gte" : new Date(moment(req.params.date)), 
+                "$lt" : new Date(moment(req.params.date).add(1, 'd'))}
             })
     .then((trips) => {
         res.json(trips)
