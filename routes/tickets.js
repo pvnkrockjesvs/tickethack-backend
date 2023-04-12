@@ -18,8 +18,7 @@ router.get('/cart', (req, res) => {
 
 // Status du ticket acheté
 router.post('/cart/:tickId', (req, res) => {
-    Ticket.updateMany({ _id: req.params.tickId}, { isPayed: true}).then(
-        tick => res.json( {result: true }) //tick
+    Ticket.updateOne({ _id: req.params.tickId}, { isPayed: true}).then(tick => res.json(tick) 
     )
 })
 
