@@ -24,7 +24,6 @@ router.post('/cart', (req, res) => {
 
 // Supprime le ticket du panier
 router.delete('/cart/:tickId', (req, res) => {
-    console.log(req.params.tickId)
     Ticket.deleteOne({ _id: req.params.tickId}).then(tick => res.json(tick))
 })
 
