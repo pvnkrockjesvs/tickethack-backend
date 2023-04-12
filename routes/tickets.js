@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Ticket = require('./../models/tickets')
 const moment = require('moment')
-const { getTotal,getTime } = require('../modules/ticketMaths');
+const { getTotal } = require('../modules/ticketMaths');
 
 
 // Recupere les tickets dans le panier
@@ -33,7 +33,7 @@ router.get('/booked', (req, res) => {
         if (tick.length == 0) {
             res.json({result: false, "error": "no trips booked"})
         } else {
-            res.json({result: true, booked: {tick, time: getTime(tick)}})
+            res.json({result: true, booked: tick})
         }
     })
 })
