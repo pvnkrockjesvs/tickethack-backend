@@ -11,7 +11,7 @@ router.get('/cart', (req, res) => {
         if (tick.length == 0) {
             res.json({result: false, "error": "no trips in cart"})
         } else {
-            res.json({result: true, tick, total: getTotal(tick), time : getTime(tick)})
+            res.json({result: true, tick, total: getTotal(tick), total : getTotal(tick)})
         }
     }    )
 })
