@@ -1,5 +1,5 @@
 const moment = require('moment')
-require('countdown')
+//require('countdown')
 
 
 function getTotal(ticks) {
