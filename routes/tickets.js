@@ -11,14 +11,15 @@ router.get('/cart', (req, res) => {
         if (tick.length == 0) {
             res.json({result: false, "error": "no trips in cart"})
         } else {
-            res.json({result: true, tick, total: getTotal(tick), time : getTime(tick)})
+            res.json({result: true, tick, total: getTotal(tick), total : getTotal(tick)})
         }
     }    )
 })
 
 // Status du ticket acheté
 router.post('/cart/:tickId', (req, res) => {
-    Ticket.updateOne({ _id: req.params.tickId}, { isPayed: true}).then(tick => res.json(tick) 
+    Ticket.updateMany({ _id: req.params.tickId}, { isPayed: true}).then(
+        tick => res.json( {result: true }) //tick
     )
 })
 
