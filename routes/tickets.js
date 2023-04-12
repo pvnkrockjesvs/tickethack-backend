@@ -41,13 +41,23 @@ router.get('/booked', (req, res) => {
 
 // Ajoute le ticket au panier
 router.post('/:tripId', (req, res) => {
-    const newTicket = new Ticket({
-        isPayed: false,
-        trip: { _id : req.params.tripId }
+    Ticket.find({trip: {_id: req.params.tripId}}).then(trip => {
+        if (trip.length == 0) {
+            const newTicket = new Ticket({
+                isPayed: false,
+                trip: { _id : req.params.tripId }
+            })
+            
+            newTicket.save().then(() => res.json(newTicket))
+
+        } else {
+            res.json({result: false, "error": "trip already in cart or booked"})
+        }
     })
-    
-    newTicket.save().then(() => res.json(newTicket))
 })
+
+    
+
 
 
 
