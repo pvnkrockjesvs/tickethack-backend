@@ -17,13 +17,14 @@ router.get('/cart', (req, res) => {
 })
 
 // Status du ticket acheté
-router.post('/cart/:tickId', (req, res) => {
-    Ticket.updateOne({ _id: req.params.tickId}, { isPayed: true}).then(tick => res.json(tick) 
+router.post('/cart', (req, res) => {
+    Ticket.updateMany({ isPayed: false}, { isPayed: true}).then(tick => res.json(tick) 
     )
 })
 
 // Supprime le ticket du panier
 router.delete('/cart/:tickId', (req, res) => {
+    console.log(req.params.tickId)
     Ticket.deleteOne({ _id: req.params.tickId}).then(tick => res.json(tick))
 })
 
