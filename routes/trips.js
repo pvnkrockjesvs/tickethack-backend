@@ -10,8 +10,8 @@ router.get('/', (req,res) => {
 })
 
 router.get('/:departure&:arrival&:date', (req, res) => {
-    Trip.find({ departure: req.params.departure,
-                arrival: req.params.arrival,
+    Trip.find({ departure: { $regex: new RegExp(req.params.departure, 'i') },
+                arrival: { $regex: new RegExp(req.params.arrival, 'i') },
                 date: { "$gte" : new Date(moment(req.params.date)), 
                 "$lt" : new Date(moment(req.params.date).add(1, 'd'))}
             })
